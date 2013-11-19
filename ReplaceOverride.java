@@ -47,7 +47,7 @@ public class ReplaceOverride {
 		return newstr;
 	}
 	
-public static String replaceRec(String str, char ch, char repch){
+	public static String replaceRec(String str, char ch, char repch){
 
 		if (str.length() == 0) {
 			return str;
