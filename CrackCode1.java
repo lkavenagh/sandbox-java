@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
 public class CrackCode1 {
 	
@@ -36,6 +36,11 @@ public class CrackCode1 {
 			System.out.println(str + " and " + str2 + " are NOT anagrams");
 		}
 		
+		char[] str3 = "Hello world!  ".toCharArray();
+		System.out.println(new String(str3) + " -> " + new String(replaceSpaces(str3, 12)));
+		
+		str = "aabccaaaaaa";
+		System.out.println(str + " -> " + compressString(str));
 	}
 	
 	public static boolean uniqueCharsString(String str) {
@@ -50,9 +55,10 @@ public class CrackCode1 {
 			}
 		}
 		
-		
-		for (Map.Entry<Character, Integer> entry : hm.entrySet()) {
-			if (entry.getValue() > 1) { return false; }
+		for (Entry<Character, Integer> e : hm.entrySet()) {
+			if (e.getValue() > 1) {
+				return false;
+			}
 		}
 		
 		return true;
@@ -108,6 +114,52 @@ public class CrackCode1 {
 		}
 		
 		return true;
+	}
+	
+	public static char[] replaceSpaces(char[] str, int length) {
+		
+		int numSpaces = 0;
+		for (int i=0; i < length; ++i) {
+			if (str[i] == ' ') {
+				numSpaces++;
+			}
+		}
+		
+		int newIdx = length + numSpaces*2 - 1;
+		for (int i=length-1; i>=0; --i) {
+			if (str[i] == ' ') {
+				str[newIdx] = '0';
+				str[newIdx-1] = '2';
+				str[newIdx-2] = '%';
+				newIdx -= 3;
+			} else {
+				str[newIdx] = str[i];
+				newIdx--;
+			}
+		}
+		
+		return str;
+		
+	}
+	
+	public static String compressString(String str) {
+		String newStr = "";
+		int repLength, i, j;
+		
+		for (i = 0; i < str.length(); ++i) {
+			repLength = 0;
+			j = i;
+			while (j < str.length() && str.charAt(j) == str.charAt(i)) {
+				repLength++;
+				j++;
+			}
+			newStr = newStr + str.charAt(i) + Integer.toString(repLength);
+			i = j-1;
+		}
+		
+		if (newStr.length() < str.length()) { return newStr; }
+		else { return str; }
+		
 	}
 	
 	
