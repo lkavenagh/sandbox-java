@@ -13,12 +13,18 @@ public class Stack {
 	
 	void push(int d) {
 		Node t = new Node(d);
+		if (top == null) {
+			top = t;
+			return;
+		}
 		t.next = top;
 		t.next.prev = t;
 		top = t;
+		
 	}
 	
 	int peek() {
 		return top.data;
 	}
+
 }
