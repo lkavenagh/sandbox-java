@@ -9,10 +9,6 @@ public class Node {
 		data = d;
 	}
 	
-	public Node(Object item) {
-		
-	}
-	
 	public Node() {
 		
 	}
